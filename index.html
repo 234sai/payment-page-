@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free UPI Payment</title>
+  <!-- Free client-side QR Code library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body { font-family: sans-serif; display: flex; justify-content: center; padding: 20px; background: #f9f9f9; }
+    .pay-card { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 320px; text-align: center; }
+    .btn { display: block; padding: 12px; margin: 10px 0; border-radius: 6px; text-decoration: none; color: #fff; font-weight: bold; }
+    .gpay { background: #4285F4; }
+    .phonepe { background: #5f259f; }
+    #qrcode { margin: 15px auto; display: inline-block; }
+  </style>
+</head>
+<body>
+
+<div class="pay-card">
+  <h3>Pay ₹3000.00</h3>
+
+  <!-- Tap buttons for mobile users -->
+  <a id="gpay" class="btn gpay" href="#">Open Google Pay</a>
+  <a id="phonepe" class="btn phonepe" href="#">Open PhonePe</a>
+
+  <p>--- OR ---</p>
+
+  <!-- QR Code for desktop users -->
+  <p>Scan with GPay, PhonePe, or BHIM:</p>
+  <div id="qrcode"></div>
+</div>
+
+<script>
+  // Replace with your actual UPI ID and merchant name
+  const upiId = "9182503188@ybl"; 
+  const name = "My Business";
+  const amount = "3000.00";
+  const note = "Order123";
+
+  // Standard zero-fee UPI Deep Link
+  const upiLink = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`;
+
+  // Set links on buttons
+  document.getElementById("gpay").href = upiLink;
+  document.getElementById("phonepe").href = upiLink;
+
+  // Generate QR code on the browser
+  new QRCode(document.getElementById("qrcode"), {
+    text: upiLink,
+    width: 150,
+    height: 150
+  });
+</script>
+
+</body>
+</html>
